@@ -4,8 +4,8 @@
   "description": "",
   "main": "src/server.js",
   "scripts": {
-    "start": "node src/server.js",
-    "dev" : "nodemon src/server.js"
+    "start": "node --env-file=.env src/server.js",
+    "dev": "nodemon --exec \"node --env-file=.env\" src/server.js"  
   },
   "repository": {
     "type": "git",
@@ -20,11 +20,6 @@
   },
   "homepage": "https://github.com/ZaccBaker/tennotech.api#readme",
   "dependencies": {
-    "cors": "^2.8.6",
-    "express": "^5.2.1",
-    "mysql2": "^3.23.4"
-  },
-  "devDependencies": {
-    "nodemon": "^3.1.14"
+    "express": "^5.2.1"
   }
 }
