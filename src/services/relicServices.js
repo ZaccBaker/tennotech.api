@@ -18,4 +18,13 @@ export const findRelicsByType = async(id) => {
     );
 
     return rows;
-}
+};
+
+export const findRelicsByName = async(name) => {
+    const [rows] = await pool.query(
+        ` SELECT * FROM relics
+        WHERE Relic_Name = ?`,[name]
+    );
+
+    return rows;
+};

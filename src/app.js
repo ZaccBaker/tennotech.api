@@ -2,6 +2,7 @@ import express from "express";
 import cors from "cors";
 
 import relicRoutes from "./routes/relicRoutes.js";
+import errorHandler from "./middleware/errorHandler.js";
 
 const app = express();
 
@@ -17,5 +18,8 @@ app.get("/", (req, res) => {
 });
 
 app.use("/relics", relicRoutes);
+
+
+app.use(errorHandler);
 
 export default app;
