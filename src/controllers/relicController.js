@@ -1,7 +1,9 @@
 import{
     findAllRelics,
     findRelicsByType,
-    findRelicsByName
+    findRelicsByName,
+    insertRelics
+
 } from "../services/relicServices.js";
 
 
@@ -18,7 +20,7 @@ export const getRelics = async (req, res, next) => {
 
 export const getRelicsByType = async (req, res, next) => {
     try {
-        const relics = await findRelicsByType(req.params.id);
+        const relics = await findRelicsByType(req.params.type);
 
         if (!relics) {
             return res.status(404).json({
@@ -49,3 +51,27 @@ export const getRelicsByName = async(req, res, next) => {
         next(error);
     }
 }
+
+export const addRelics = async(req, res, next) => {
+    try {
+        
+        const {
+            name,
+            type
+        } = req.body;
+
+        const id = await insertRelics(
+            name,
+            type
+        );
+
+        res.status(201).json({
+            id,
+            name,
+            type
+        });
+
+    } catch (error) {
+        next(error);
+    }
+};

@@ -3,7 +3,8 @@ import express from "express";
 import{
     getRelics,
     getRelicsByType,
-    getRelicsByName
+    getRelicsByName,
+    addRelics
 } from "../controllers/relicController.js";
 
 
@@ -12,9 +13,10 @@ const relicRouter = express.Router();
 
 relicRouter.get("/", getRelics);
 
-relicRouter.get("/type/:id", getRelicsByType);
+relicRouter.get("/type/:type", getRelicsByType);
 
 relicRouter.get("/name/:name", getRelicsByName);
 
+relicRouter.post("/", addRelics);
 
 export default relicRouter;
