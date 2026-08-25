@@ -57,17 +57,20 @@ export const addRelics = async(req, res, next) => {
         
         const {
             name,
+            vaulted,
             type
         } = req.body;
 
         const id = await insertRelics(
             name,
+            vaulted,
             type
         );
 
         res.status(201).json({
             id,
             name,
+            vaulted,
             type
         });
 
