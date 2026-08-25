@@ -42,7 +42,14 @@ export const findRelicsByName = async(name) => {
 
     const [rows] = await pool.query(
         `
-        SELECT * FROM relics
+        SELECT
+            r.Relic_ID as ID,
+            r.Relic_Name as Name,
+            r.Relic_Status as Vaulted,
+            rt.Type_Name as Type
+        FROM relics r
+        JOIN relicType rt
+            ON r.Type_ID = rt.Type_ID
         WHERE Relic_Name = ?
         `,[name]
     );
