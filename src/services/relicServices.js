@@ -96,23 +96,29 @@ export const insertRelics = async(name, vaulted, type) => {
     return result.insertId;
 };
 
-export const updateRelicsVaulted = async(name, type) => {
+export const updateRelicsVaulted = async(name, vaulted) => {
 
     const [result] = await pool.query(
         `
         UPDATE relics
-            (relic_name, type_id)
-        SELECT
-            r.relic_name,
-            rt.type_id
-        FROM (
-            SELECT
-                ? AS relic_name,
-                ? AS type_name
-        ) r
-        JOIN relicType rt ON rt.type_name = r.type_name
-        `, [name, type]
+        SET
+            relic_vaulted = ?
+        WHERE relic_name = ?
+        `, [vaulted, name]
     );
 
-    return result.insertId;
+    return result.affectedRows;
 };
+
+
+export const deleteRelic = async(name) => {
+
+    const [remove] = await pool.query(
+        `
+        DELETE FROM relics
+        WHERE relic_name = ?
+        `, [name]
+    );
+
+    return remove.affectedRows;
+}

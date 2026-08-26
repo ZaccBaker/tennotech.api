@@ -2,8 +2,9 @@ import{
     findAllRelics,
     findRelicsByType,
     findRelicsByName,
-    insertRelics
-
+    insertRelics,
+    updateRelicsVaulted,
+    deleteRelic
 } from "../services/relicServices.js";
 
 
@@ -78,3 +79,58 @@ export const addRelics = async(req, res, next) => {
         next(error);
     }
 };
+
+export const updateRelic = async(req, res, next) => {
+    try {
+
+        const { name } = req.params;
+        
+        const {
+            vaulted
+        } = req.body;
+
+        const updated = await updateRelicsVaulted(
+            name,
+            vaulted
+        );
+
+        if (!updated) {
+            return res.status(404).json({
+                error: "Relic not found"
+            });
+        }
+
+        res.status(201).json({
+            name,
+            vaulted
+        });
+
+    } catch (error) {
+        next(error);
+    }
+};
+
+export const removeRelic = async(req, res, next) => {
+    try {
+
+        const { name } = req.params;
+
+        const affectedRows = await deleteRelic(
+            name
+        );
+
+        if (affectedRows === 0) {
+            return res.status(404).json({
+                error: "Relic not found"
+            });
+        }
+
+        res.status(200).json({
+            message: "Relic deleted successfully",
+            name
+        });
+
+    } catch (error) {
+        next(error);
+    }
+}
