@@ -1,5 +1,7 @@
 import express from "express";
 
+import adminCheck from "../middleware/adminCheck.js";
+
 import{
     getRelics,
     getRelicsByType,
@@ -18,6 +20,8 @@ relicRouter.get("/", getRelics);
 relicRouter.get("/type/:type", getRelicsByType);
 
 relicRouter.get("/name/:name", getRelicsByName);
+
+relicRouter.use(adminCheck);
 
 relicRouter.post("/", addRelics);
 
