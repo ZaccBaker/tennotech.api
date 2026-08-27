@@ -17,6 +17,13 @@ app.get("/", (req, res) => {
     });
 });
 
+app.get("/health", (req, res) => {
+    res.status(200).json({
+        status: "UP",
+        timestamp: new Date().toISOString()
+    });
+});
+
 app.use("/relics", relicRoutes);
 
 
